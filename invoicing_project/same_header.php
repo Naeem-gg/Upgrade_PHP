@@ -23,7 +23,7 @@ session_start();
             <p><?php echo "<img src=".$_SESSION['image']." width='200'>";?></p>
             <p><strong>UserName:</strong><br> This is <?php echo strtoupper($_SESSION['user']);?>'s dashboard</p>
         </div>
-        <h1>User Dashboard</h1>
+        <h1 align="center" style="">User Dashboard</h1>
     
 
     </div>

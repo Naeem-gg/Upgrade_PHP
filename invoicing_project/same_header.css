@@ -1,8 +1,15 @@
+body,h1
+{
+    margin: 0px;
+    padding: 0px;
+    
+}
 #maincontainer
 {
     background-color: #654987;
     width:100%;
     height:400px;
+    
 }
 #right
 {

@@ -40,6 +40,7 @@ if(!$_SESSION['status'])
 
     </div>
 
+    <a href="AddProd.php" class="ahref">Add products</a><br>
     <a href="DispProd.php" class="ahref">Display products</a><br>
     <a href="EditProd.php" class="ahref">Edit Products</a><br>
     <a href="UserDetails.php" class="ahref">User Details</a><br>
