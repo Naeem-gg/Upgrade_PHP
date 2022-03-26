@@ -1,4 +1,10 @@
 <?php
+// if(!$_SESSION['status'])
+// {
+//     header("Location:userlogin.php");
+// }
+?>
+<?php
 include "same_header.php";
 ?>
 <!DOCTYPE html>
@@ -23,21 +29,29 @@ include "same_header.php";
     <?php
         if(isset($_POST['sub']))
         {
-            $mydata=array($_POST['product_name'],$_POST['product_price']);
             $f=fopen("products.csv","r") or die("ERROR while opening file");
-            while($row=fgetcsv($f)!==false)
+            $flag=0;
+            while(($row=fgetcsv($f))!==false)
             {
                 if($row[0]===$_POST['product_name'])
                 {
                     echo "<script>alert('product already exists')</script>";
-                }
-                else
-                {
-                    echo "ADDED successfully";
+                    $flag=1;
+                    fclose($f);
+                    break;
                 }
             }
+                if($flag===0)
+                {
+                    $mydata=array($_POST['product_name'],$_POST['product_price']);
+                    $f1=fopen("products.csv","a");
+                    fputcsv($f1,$mydata) or die("Unable to write data in $f1");
+                    echo "Data added successfully";
+                    fclose($f1);
+
+
+                }
             
-            fclose($f);
         }
     ?>      
 </body>
