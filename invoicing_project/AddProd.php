@@ -49,7 +49,7 @@ include "same_header.php";
                     echo "Data added successfully";
                     fclose($f1);
 
-
+                        
                 }
             
         }
