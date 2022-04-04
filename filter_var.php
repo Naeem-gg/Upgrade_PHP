@@ -15,7 +15,6 @@
     }
     else
     {
-        echo "bad";
     }
     $email="something@shd.com";
     if(filter_var($email,FILTER_VALIDATE_EMAIL))
@@ -25,7 +24,7 @@
     else
     {
         echo "bad";
-    }
+    }    
     ?>
 </body>
 </html>
