@@ -18,17 +18,41 @@
         $server="localhost";
         $user="root";
         $pass="";
-        $db=$_POST['mydata'];
         $con=mysqli_connect($server,$user,$pass);
         if($con)
         {
             if(isset($_POST['create']))
             {
+                $db=$_POST['mydata'];
                 $q="CREATE DATABASE $db";
                 $result=mysqli_query($con,$q);
                 if($result)
                 {
                     echo "Database $db created successfull";
+                    $connect=mysqli_connect($server,$user,$pass,$db) or die("Can't connect to database $db");
+                    if($connect)
+                    {
+                            echo "<br>New connection successfull";
+                            echo "<form method='POST'>
+                            <strong>Enter Table Name:</strong>
+                            <input type='text' size=20 name='mytable' >
+                            <input type='submit' value='Create' name='crtable'>
+                            <input type='submit' value='Delete' name='drtable'>
+                        </form>";
+                        if(isset($_POST['crtable']))
+                        {
+
+                            $tb=$_POST['mytable'];
+                            $qu="CREATE TABLE `$tb` ( `srname` TINYINT NOT NULL , `studentname` VARCHAR(40) NOT NULL , PRIMARY KEY (`srname`));";
+                            
+                            $r=mysqli_query($connect,$qu) or die("can't create table $tb");
+                            if($r)
+                            {
+                                echo "$tb Table created successfully";
+                            }
+                        }
+                    }
+
                 }
                 
             
@@ -36,6 +60,7 @@
             }
             if(isset($_POST['drop']))
             {
+                $db=$_POST['mydata'];
                 $qu="DROP DATABASE $db";
                 $res=mysqli_query($con,$qu);
                 if($res)
