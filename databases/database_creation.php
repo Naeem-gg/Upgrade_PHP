@@ -27,30 +27,41 @@
                 $q="CREATE DATABASE $db";
                 $result=mysqli_query($con,$q);
                 if($result)
-                {
+                {   
+                    mysqli_close($con);
                     echo "Database $db created successfull";
                     $connect=mysqli_connect($server,$user,$pass,$db) or die("Can't connect to database $db");
                     if($connect)
                     {
-                            echo "<br>New connection successfull";
-                            echo "<form method='POST'>
-                            <strong>Enter Table Name:</strong>
-                            <input type='text' size=20 name='mytable' >
-                            <input type='submit' value='Create' name='crtable'>
-                            <input type='submit' value='Delete' name='drtable'>
-                        </form>";
-                        if(isset($_POST['crtable']))
-                        {
-
-                            $tb=$_POST['mytable'];
-                            $qu="CREATE TABLE `$tb` ( `srname` TINYINT NOT NULL , `studentname` VARCHAR(40) NOT NULL , PRIMARY KEY (`srname`));";
-                            
-                            $r=mysqli_query($connect,$qu) or die("can't create table $tb");
-                            if($r)
+                            echo "<br>New connection successfull with $db";
+                                $q1="CREATE TABLE `teachers` ( `teacherid` TINYINT NOT NULL , `teachername` VARCHAR(40) NOT NULL , PRIMARY KEY (`teacherid`));";
+                                $q2="CREATE TABLE `students` ( `studentid` TINYINT NOT NULL , `studentname` VARCHAR(40) NOT NULL , PRIMARY KEY (`studentid`));";
+                            if(($t1=mysqli_query($connect,$q1))&&($t2=mysqli_query($connect,$q2)))
                             {
-                                echo "$tb Table created successfully";
+                                echo "<br>tables created successfully";
                             }
-                        }
+                            else
+                            {
+                                echo "<br>Error while creating tables";
+                            }
+                        //     echo "<form method='POST'>
+                        //     <strong>Enter Table Name:</strong>
+                        //     <input type='text' size=20 name='mytable' >
+                        //     <input type='submit' value='Create' name='crtable'>
+                        //     <input type='submit' value='Delete' name='drtable'>
+                        // </form>";
+                        // if(isset($_POST['crtable']))
+                        // {
+
+                        //     $tb=$_POST['mytable'];
+                        //     $qu="CREATE TABLE `$tb` ( `srname` TINYINT NOT NULL , `studentname` VARCHAR(40) NOT NULL , PRIMARY KEY (`srname`));";
+                            
+                        //     $r=mysqli_query($connect,$qu) or die("can't create table $tb");
+                        //     if($r)
+                        //     {
+                        //         echo "$tb Table created successfully";
+                        //     }
+                        // }
                     }
 
                 }
