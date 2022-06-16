@@ -8,33 +8,24 @@
 </head>
 <body>
     <?php
-    echo "connecting to MYSQL database";
+    // echo "connecting to MYSQL database";
     $servername="localhost";
     $username="naeem";
-    $password="Navjivan@123";
+    $password="Navjivan";
     $db="naeem";
-
-    $con=mysqli_connect($servername,$username,$password,$db);
-
-    if(!$con)
+    try 
     {
-        die("ERROR!");
+        $con= new mysqli($servername,$username,$password,$db);
+        if($con->connect_error)
+        {
+            die("ERROR! while connecting $db ".$con->connect_error);
+        }
     }
-    else
-    {
-        echo "<br>Connection successfull";
+     catch (Exception $th) 
+     {
+        echo $th->getMessage();
     }
-    echo "<br><br>";
-    // print_r($con);
     
-    
-    
-    $q="SELECT * FROM userdetails";
-    mysqli_query($con,$q);
-    if(!$con)
-    {
-        die("ERROR! ".mysqli_error($con));
-    }
   
     ?>
 </body>
