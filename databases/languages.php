@@ -8,22 +8,71 @@
 </head>
 <body>
     <form method="POST" enctype="multipart/form-data">
-        <strong>Username: </strong>
-        <input type="text" name="user" placeholder="Enter username" required><br><br>
-        <strong>Password: </strong>
+        <strong>Language Name: </strong>
+        <input type="text" name="lang" placeholder="Enter Language Name" required><br><br>
+        <!-- <strong>Password: </strong>
         <input type="password" name="pass" placeholder="Enter password" required><br><br>
         <strong>Email: </strong>
-        <input type="email" name="email" placeholder="Enter email" required><br><br>
-        <strong>Mobile: </strong>
-        <input type="number" name="mobile" placdeholder="Enter Mobile number" required><br><br>
-        <strong>Profile: </strong>
-        <input type="file" name="profile" required><br><br>
-        <input type="submit" value="Subscribe Now" name="sub">
+        <input type="email" name="email" placeholder="Enter email" required><br><br> -->
+        <strong>Year: </strong>
+        <input type="number" name="year" required><br><br>
+        <strong>Logo: </strong>
+        <input type="file" name="logo" required><br><br>
+        <strong>Description:</strong><br><br>
+        <textarea name="desc" cols="30" rows="5"></textarea><br><br>
+        <input type="submit" value="Add Now" name="sub">
     </form>
     <?php
     if(isset($_POST['sub']))
     {
-        print_r($_FILES);
+    $servername="localhost";
+    $username="naeem";
+    $password="Navjivan";
+    $db="lang";
+    try 
+    {
+        $con= new mysqli($servername,$username,$password,$db);
+        if($con->connect_error)
+        {
+            die("ERROR! while connecting $db ".$con->connect_error);
+        }
+        else
+        {
+            $lang=$_POST['lang'];
+            $year=$_POST['year'];
+            $logo=$_FILES['logo']['name'];
+            $desc=$_POST['desc'];
+            $file=$_FILES['logo'];
+
+            $tmp=$file['tmp_name'];
+            $dest="images/".$file['name'];
+            $fname=$file['name'];
+            if(move_uploaded_file($tmp,$dest))
+            {
+                $time = date("H:i:s",time());
+
+                echo $time;
+                $q="INSERT INTO `langs` (`lang_name`, `year`, `lang_logo`, `lang_desc`, `date`) VALUES ('$lang', '$year', '$dest', '$desc','$time')";   
+                if($con->query($q))
+                {
+                    echo "Data inserted successfully details are as shown below:";
+                    echo "<br> Language Name: $lang";
+                    echo "<br> Year of release: $year";
+                    echo "<br> Language logo file dest: $logo";
+                    echo "<br> <img src='$dest' width='100'";
+                    echo "<br> <br>Description: <p>$desc</p>";
+                    
+                }
+
+            }
+        }
+    }
+     catch (Exception $th) 
+     {
+        echo $th->getMessage();
+    }
+        // print_r($_FILES['logo']);
+        // echo "<img src=images/C.png width=100>";
         
     }
     ?>
