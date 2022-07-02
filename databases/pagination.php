@@ -1,52 +1,31 @@
-<html>  
-    <head>  
-        <style>
-             .d
-        {
-            display:block;
-            width:250px;
-            /* background-color:red; */
-        }
-        a
-        {
-            background-color:grey;
-            border-radius:10px;
-            margin-left:60px;
-            /* margin:0px auto; */
-            padding:15px;
-            text-decoration:none;
-            color:white;
-            font-size:18px;
+<?php  
+session_start();
+print_r($_GET);
+print_r($_SESSION);
+if(!isset($_SESSION['lim']))
+{
+    $_SESSION['lim']=$_GET['lim'];
 
-        }
-        div 
-        {
-            /* background-color:red; */
-            margin:0px auto;
-            width:50%;
-            height:100px;
-        }
+}
+else
+{
+
+    //   if(isset($_POST['sub']))
+    //   {
         
-        </style>
-    <title> Pagination </title>  
-    </head>  
-    <body>  
-      
-    <?php  
-      
-        //database connection  
-        $conn = new mysqli('localhost', 'naeem', 'Navjivan','lang');  
-        if($conn->connect_error)
-        {
-            die("Unable to connect");
-        }
-        else
-        {
-            $results_per_page = 3;  
-            $q = "SELECT * FROM langs";  
-            $r = $conn->query($q);
-            // print_r($r->num_rows);
-            $total_results = $r->num_rows;
+        
+          $conn = new mysqli('localhost', 'naeem', 'Navjivan','lang');  
+          if($conn->connect_error)
+          {
+              die("Unable to connect");
+            }
+            else
+            {
+                $results_per_page = $_SESSION['lim'];  
+                $q = "SELECT * FROM langs";  
+                $r = $conn->query($q);
+                // print_r($r->num_rows);
+                $total_results = $r->num_rows;
             // echo $total_results;
             // $row = $r->fetch_array();
             // print_r($row);
@@ -120,26 +99,28 @@
             
             for($page = 1; $page<= $num_pages; $page++) {  
                 echo '<a href = "pagination.php?page=' . $page . '">' . $page . ' </a>';  
-            
+                
             }
             
-            if($_GET['page']<$num_pages)
+            if(@$_GET['page']<$num_pages)
             {   
-                echo "<h1>{$_GET['page']}</h1>";
-
+                // echo "<h1>{$_GET['page']}</h1>";
+                
                 // echo "<h1>$total_results<br>$num_pages</h1>";
-                $next=$_GET['page']+1;
+                @$next=$_GET['page']+1;
                 echo "<a href=?page=$next >Next</a>"; 
             }  
             echo "</div>";
-          
-      /*
-        //define total number of results you want per page  
+            
+        }
+            // }
+            /*
+            //define total number of results you want per page  
       
         //find the total number of results stored in the database  
         $result = mysqli_query($conn, $query);  
         $number_of_result = mysqli_num_rows($result);  
-      
+        
         //determine the total number of pages available  
         $number_of_page = ceil ($number_of_result / $results_per_page);  
       
@@ -169,5 +150,3 @@
         }  
       */
     ?>  
-    </body>  
-    </html>  

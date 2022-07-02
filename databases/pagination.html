@@ -1,0 +1,65 @@
+<html>  
+    <head>  
+        <style>
+        .d
+        {
+            display:block;
+            width:250px;
+            /* background-color:red; */
+        }
+        a
+        {
+            background-color:grey;
+            border-radius:10px;
+            margin-left:60px;
+            /* margin:0px auto; */
+            padding:15px;
+            text-decoration:none;
+            color:white;
+            font-size:18px;
+
+        }
+        div 
+        {
+            /* background-color:red; */
+            margin:0px auto;
+            width:50%;
+            height:100px;
+        }
+        
+        </style>
+        <script type="text/javascript">
+        function show(x)
+        {
+            
+                var lim = x.value;
+                //document.write(lim);
+                var obj = new XMLHttpRequest();
+                obj.open("GET","pagination.php?lim="+lim);
+                sessionStorage.clear(); 
+                obj.send();
+                obj.onreadystatechange = function(){
+                    if(obj.readyState===4 && obj.status===200)
+                    {
+                        
+                        document.getElementById("i").innerHTML=obj.responseText;
+                    }
+                }
+            
+            
+
+             
+        }
+    </script>  
+    <title> Pagination </title>  
+    </head>  
+    <body>  
+      <form method="post">
+        <strong>Enter limit:</strong>
+        <input type="number" name="lim" id="l">
+        <button type="button" onclick="show(lim);">Show</button>
+        <span id="i"></span>
+      </form>
+    
+    </body>  
+    </html>  
