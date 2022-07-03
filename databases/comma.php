@@ -12,7 +12,7 @@
     // $add="git add .";
     // $commit="git commit -m `$comm`";
     // $push="git push -u origin master";
-    print_r( shell_exec("git add ."));
+    print_r( shell_exec("git push"));
     ?>
 </body>
 </html>
