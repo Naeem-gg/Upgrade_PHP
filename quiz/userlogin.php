@@ -64,14 +64,17 @@
         }
         else
         {
-            $q="SELECT `passw` from `userinfo` WHERE `username`=`$user`";
-            if($con->query($q))
+            $q="SELECT `passw` FROM `userinfo` WHERE `username`='$user'";
+            $r=$con->query($q);
+            if($r->num_rows>0)
             {
                 header("location:questions.php");
             }
-            else{
-                echo "User not found";
+            else
+            {
+                echo "<script>alert('user not found in database');</script>";
             }
+            
         }
     }
      catch (Exception $th) 
