@@ -64,11 +64,12 @@
         }
         else
         {
-            $q="SELECT `passw` FROM `userinfo` WHERE `username`='$user'";
+            $q="SELECT * FROM `userinfo` WHERE `username`='$user' AND `passw`='$pass'";
             $r=$con->query($q);
             if($r->num_rows>0)
             {
                 header("location:questions.php");
+                
             }
             else
             {

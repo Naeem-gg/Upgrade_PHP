@@ -43,6 +43,7 @@
                     echo "<table border=1 cellspacing=0 cellpadding=10 style='margin:0px auto; text-align:center; margin-top:50px; width:80%; font-family:Arial;'>";
                     echo "<tr><th>Question No</th><th>Questions</th><th>A</th><th>B</th><th>C</th><th>D</th></tr>";
                     $name=1;
+                    $count=0;
                     while($row= $r->fetch_assoc())
                     {
                         echo "<tr>";
@@ -77,7 +78,11 @@
                         </td>";
                         
                         echo "</tr>";
+
+                        
                         $name+=1;
+
+                        
                     }
                     echo "</table>";
                     echo "
