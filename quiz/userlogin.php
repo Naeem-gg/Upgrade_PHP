@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -68,6 +71,7 @@
             $r=$con->query($q);
             if($r->num_rows>0)
             {
+                $_SESSION['user']=$user;
                 header("location:questions.php");
                 
             }
